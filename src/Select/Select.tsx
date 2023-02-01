@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { PlanData } from "../Plan.types";
 
 type SelectProps = {
-  data: PlanData,
+  data: PlanData | undefined,
   onChange: (day: string) => void
 };
 
@@ -13,7 +13,7 @@ const Select = ({data, onChange}: SelectProps) => {
     <>
     <select onChange={event => onChange(event.target.value)}>
       {
-        data.map((item) => {
+        data?.map((item) => {
           return <option value={item.day}>{`Day ${item.day}`}</option>
         })
       }

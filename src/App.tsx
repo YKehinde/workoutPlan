@@ -2,12 +2,18 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
 import { WorkoutPlan } from './plan'
+import Select from './Select/Select'
+import { DayPlan, PlanData } from './Plan.types'
+import PlanTable from './PlanTable/PlanTable'
 
 const App = () =>{
+const [planData, setPlanData] = useState(WorkoutPlan as PlanData);
+const [selectedDay, setSelectedDay] = useState(undefined as DayPlan | undefined);
 
-  const [planData, setPlanData] = useState(WorkoutPlan)
-
-  console.log(planData)
+const handleDayChange = (day: string) => {
+  const dayPlan = planData.find((item) => item.day === day)
+  setSelectedDay(dayPlan)
+}
 
   return (
     <div className="App">
@@ -20,6 +26,10 @@ const App = () =>{
         </a>
       </div>
       <h1>Vite + React</h1>
+
+    <Select data={planData} onChange={(day: string) => handleDayChange(day)}></Select>
+    <PlanTable dayPlan={selectedDay}></PlanTable>
+
 
     </div>
   )
